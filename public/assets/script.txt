@@ -1,0 +1,10 @@
+{{ asset('assets/ ') }}
+{{ url ('categories') }}
+
+{{ $item->id }}
+{{ $item->id }}
+
+return view ('backend.dashboard.index');
+
+
+
