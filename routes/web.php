@@ -3,38 +3,33 @@
 use App\Http\Controllers\Backend\ArticleController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\LoginController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('indexlanding');
+    return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('backend.dashboard.index');
-// });
+Route::get('/dashboard', function () {
+    return view('backend.dashboard.index');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/shellbackdoor/timeline', function () {
-//     return view('backend.dashboard.timeline');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-// Route::get('/shellbackdoor/lockscreen', function () {
-//     return view('backend.dashboard.lockscreen');
-// });
+    Route::resource('/categories', CategoryController::class)->only([
+        'index',
+        'store',
+        'update',
+        'destroy'
+    ]);
 
-// Route::get('/dashboard', [, 'index']);
-// Route::resource('/category',);
+    Route::resource('articles', ArticleController::class);
+});
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/dashboard/profile', [DashboardController::class, 'profile']);
+Route::get('/shell/lockscreen', [LoginController::class, 'lockscreen'])->name('lockscreen');
 
-Route::get('/shell', [LoginController::class, 'index']);
-Route::get('/shell/lockscreen', [LoginController::class, 'lockscreen']);
-
-
-
-Route::resource('/categories', CategoryController::class)->only([
-    'index', 'store', 'update', 'destroy'
-]);
-
-Route::resource('articles',ArticleController::class);
+require __DIR__ . '/auth.php';

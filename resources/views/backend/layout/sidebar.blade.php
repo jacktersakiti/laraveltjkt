@@ -7,7 +7,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Jack Wilder</a>
+                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
 
                 <li class="nav-header">ARTIKEL</li>
                 <li class="nav-item">
-                    <a href="{{ url ('articles') }}" class="nav-link">
+                    <a href="{{ url('articles') }}" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
                             Articles
@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url ('categories') }}" class="nav-link">
+                    <a href="{{ url('categories') }}" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
                             Catetories
@@ -51,13 +51,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            User
-                            <span class="badge badge-info right">2</span>
-                        </p>
-                    </a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <p>
+                                Logout
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                    </form>
                 </li>
 
 

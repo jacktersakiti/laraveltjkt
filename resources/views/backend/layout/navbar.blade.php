@@ -125,11 +125,12 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
+
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="user-image img-circle elevation-2"
                     alt="User Image">
-                <span class="d-none d-md-inline">Jack Wilder</span>
+                <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
@@ -138,29 +139,44 @@
                         alt="User Image">
 
                     <p>
-                        Jack Wilder - Web Developer
+                        {{ auth()->user()->name }}
                         <small>Member since Nov. 2012</small>
                     </p>
                 </li>
                 <!-- Menu Body -->
                 <li class="user-body">
                     <div class="row">
-                        <div class="col-4 text-center">
-                            <a href="#">Followers</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Sales</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Friends</a>
-                        </div>
+                        <div class="btn-group btn-block">
+                            <button type="button" class="btn btn-success">Left</button>
+                            <button type="button" class="btn btn-secondary">Middle</button>
+                            <button type="button" class="btn btn-warning">Right</button>
+                          </div>
                     </div>
                     <!-- /.row -->
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+                    {{-- <a href="#" class="btn btn-default btn-flat">Profile</a> --}}
+                    <form method="#" action="#">
+                        @csrf
+                        <a class="btn btn-info float-left" href="Profile">
+                            Profile
+                        </a>
+                    </form>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a class="btn btn-danger float-right" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+
+                            Logout
+
+                        </a>
+                    </form>
+
+
+
                 </li>
             </ul>
         </li>

@@ -12,13 +12,6 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view ('backend.login.login');
-        //
-    }
-
-    public function lockscreen()
-    {
-        return view ('backend.login.lockscreen');
         //
     }
 
